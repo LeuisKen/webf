@@ -72,6 +72,7 @@ pub use transition_event::*;
 pub use ui_event::*;
 pub use container_node::*;
 pub use exception_state::*;
+pub use executing_context::*;
 pub use text::*;
 pub use comment::*;
 pub use character_data::*;

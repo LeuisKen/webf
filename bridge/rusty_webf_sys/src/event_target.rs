@@ -16,7 +16,7 @@ use crate::node::{Node, NodeRustMethods};
 use crate::window::{Window, WindowRustMethods};
 
 #[repr(C)]
-struct EventCallbackContext {
+pub struct EventCallbackContext {
   pub callback: extern "C" fn(event_callback_context: *const OpaquePtr,
                               event: *const OpaquePtr,
                               event_method_pointer: *const EventRustMethods,
@@ -26,7 +26,7 @@ struct EventCallbackContext {
   pub ptr: *const EventCallbackContextData,
 }
 
-struct EventCallbackContextData {
+pub struct EventCallbackContextData {
   executing_context_ptr: *const OpaquePtr,
   executing_context_method_pointer: *const ExecutingContextRustMethods,
   func: EventListenerCallback,
@@ -42,7 +42,7 @@ pub trait RustMethods {}
 
 
 #[repr(C)]
-enum EventTargetType {
+pub enum EventTargetType {
   EventTarget = 0,
   Node = 1,
   ContainerNode = 2,

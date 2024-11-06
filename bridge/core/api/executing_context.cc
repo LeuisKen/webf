@@ -8,6 +8,7 @@
 #include "core/dom/document.h"
 #include "core/executing_context.h"
 #include "core/frame/window.h"
+#include "core/frame/window_or_worker_global_scope.h"
 
 namespace webf {
 
@@ -25,6 +26,16 @@ WebFValue<Window, WindowPublicMethods> ExecutingContextWebFMethods::window(webf:
 WebFValue<SharedExceptionState, ExceptionStatePublicMethods> ExecutingContextWebFMethods::CreateExceptionState() {
   return WebFValue<SharedExceptionState, ExceptionStatePublicMethods>(new SharedExceptionState(),
                                                                       ExceptionState::publicMethodPointer(), nullptr);
+}
+
+int32_t ExecutingContextWebFMethods::SetTimeout(ExecutingContext* context,
+                                                WebFNativeFunctionContext* callback_context,
+                                                int32_t timeout,
+                                                SharedExceptionState* shared_exception_state) {
+  auto callback_impl = WebFNativeFunction::Create(callback_context, shared_exception_state);
+
+  return WindowOrWorkerGlobalScope::setTimeout(context, callback_impl, timeout,
+                                               shared_exception_state->exception_state);
 }
 
 }  // namespace webf
